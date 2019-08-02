@@ -30,3 +30,13 @@ zuul:
       # In case of auth, we need to pass the "/auth/" in the path to auth service. So, set strip-prefix to false
       strip-prefix: false
       sensitive-headers: Cookie,Set-Cookie
+    employee-service:
+      path: /employee/**
+      service-id: employee-service
+    organization-service:
+      path: /organization/**
+      service-id: organization-service
+    department-service:
+      path: /department/**
+      service-id: department-service  
+           
