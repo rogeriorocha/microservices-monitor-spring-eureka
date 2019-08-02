@@ -1,12 +1,12 @@
 server:
-  port: 8098
+  port: 8097
 
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8061/eureka/
-#    healthcheck:
-#      enabled: true  
+    healthcheck:
+      enabled: true  
       
 logging:
   pattern: 
@@ -15,5 +15,4 @@ logging:
 management:
   endpoint:
     health:
-      show-details: always
-    
+      show-details: always 

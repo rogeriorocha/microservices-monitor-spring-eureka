@@ -1,7 +1,11 @@
+
+    
 server:
   port: 8061
 
 eureka:
+  #datacenter: main
+  #environment: prod
   dashboard:
      enabled: true
   instance:
