@@ -28,6 +28,13 @@ public class UserController {
 	@Autowired
 	UserRepository repository;
 
+	/*
+	@GetMapping("/me")
+	public String currentUserName(Authentication authentication) {
+		return authentication.getName();
+	}
+	*/
+
 	@PostMapping("/")
 	public User add(@RequestBody User user) {
 		LOGGER.info("User add: {}", user);

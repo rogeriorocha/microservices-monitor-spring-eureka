@@ -10,9 +10,23 @@ logging:
   pattern: 
     console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
           
-          
 zuul:
+  #A prefix that can added to beginning of all requests.
+  #prefix: /api
+  # Disable accessing services using service name (i.e. gallery-service).
+  # They should be only accessed through the path defined below.
+  # Link https://stackoverflow.com/questions/46317388/zuul-service-name-exposed-instead-of-route-path-only
+  ignored-services: '*'
   routes:
     user-service:
       path: /user/**
       service-id: user-service
+    auth-service:
+      path: /auth/**
+      service-id: auth-service
+      # By default, all requests to gallery service for example will start with: "/gallery/"
+      # What will be sent to the gallery service is what comes after the path defined, 
+      # So, if request is "/gallery/view/1", gallery service will get "/view/1".
+      # In case of auth, we need to pass the "/auth/" in the path to auth service. So, set strip-prefix to false
+      strip-prefix: false
+      sensitive-headers: Cookie,Set-Cookie
