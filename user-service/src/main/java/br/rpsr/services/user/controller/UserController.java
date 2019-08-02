@@ -29,11 +29,15 @@ public class UserController {
 	UserRepository repository;
 
 	/*
-	@GetMapping("/me")
-	public String currentUserName(Authentication authentication) {
-		return authentication.getName();
+	 * @GetMapping("/me") public String currentUserName(Authentication
+	 * authentication) { return authentication.getName(); }
+	 */
+
+	
+	@GetMapping("/teste")
+	public String currentUserName() {
+		return null;
 	}
-	*/
 
 	@PostMapping("/")
 	public User add(@RequestBody User user) {
