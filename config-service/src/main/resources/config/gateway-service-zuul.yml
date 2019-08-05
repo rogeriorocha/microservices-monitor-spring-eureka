@@ -11,8 +11,8 @@ logging:
     console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
           
 zuul:
-  #A prefix that can added to beginning of all requests.
   #prefix: /api
+  #A prefix that can added to beginning of all requests.
   # Disable accessing services using service name (i.e. gallery-service).
   # They should be only accessed through the path defined below.
   # Link https://stackoverflow.com/questions/46317388/zuul-service-name-exposed-instead-of-route-path-only
