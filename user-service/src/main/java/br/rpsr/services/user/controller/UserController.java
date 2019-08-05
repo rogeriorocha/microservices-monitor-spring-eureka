@@ -7,10 +7,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,7 +35,6 @@ public class UserController {
 	 * authentication) { return authentication.getName(); }
 	 */
 
-	
 	@GetMapping("/teste")
 	public String currentUserName() {
 		return null;
@@ -41,12 +42,21 @@ public class UserController {
 
 	@PostMapping("/")
 	public User add(@RequestBody User user) {
+
 		LOGGER.info("User add: {}", user);
 		return repository.add(user);
 	}
 
 	@GetMapping("/")
-	public List<User> findAll() {
+	public List<User> findAll(@RequestHeader(value = "x-user-header") String userName,
+			@RequestHeader MultiValueMap<String, String> headers) {
+
+		System.out.println("**** user TOKEN=" + userName);
+
+		headers.forEach((String key, List<String> list) -> {
+			System.out.println(key + " " + list.toString());
+		});
+
 		LOGGER.info("user find");
 		return repository.findAll();
 	}
