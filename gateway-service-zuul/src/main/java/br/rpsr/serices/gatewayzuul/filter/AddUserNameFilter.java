@@ -1,5 +1,7 @@
 package br.rpsr.serices.gatewayzuul.filter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,6 +12,8 @@ import com.netflix.zuul.context.RequestContext;
 
 @Component
 public class AddUserNameFilter extends ZuulFilter {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(AddUserNameFilter.class);
 
 	public static final String USER_HEADER = "X-User-Header";
 

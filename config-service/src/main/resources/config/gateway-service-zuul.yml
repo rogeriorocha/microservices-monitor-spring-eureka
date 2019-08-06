@@ -38,5 +38,10 @@ zuul:
       service-id: organization-service
     department-service:
       path: /department/**
-      service-id: department-service  
+      service-id: department-service
+    fs-service:
+      path: /fs/**
+      service-id: fs-service  
+                 
+        
            

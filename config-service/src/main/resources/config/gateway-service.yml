@@ -44,4 +44,11 @@ spring:
         predicates:
         - Path=/user/**
         filters:
-        - RewritePath=/user/(?<path>.*), /$\{path}        
+        - RewritePath=/user/(?<path>.*), /$\{path}
+        
+      - id: fs-service
+        uri: lb://fs-service
+        predicates:
+        - Path=/fs/**
+        filters:
+        - RewritePath=/fs/(?<path>.*), /$\{path}                        

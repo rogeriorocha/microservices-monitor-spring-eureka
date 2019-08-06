@@ -1,0 +1,18 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "br.rpsr.services.fs.storage.StorageProperties",
+      "name": "storage",
+      "type": "br.rpsr.services.fs.storage.StorageProperties"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "br.rpsr.services.fs.storage.StorageProperties",
+      "name": "storage.location",
+      "description": "Folder location for storing files",
+      "type": "java.lang.String"
+    }
+  ]
+}

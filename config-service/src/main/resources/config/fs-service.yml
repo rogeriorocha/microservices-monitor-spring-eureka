@@ -1,18 +1,30 @@
 server:
   port: 8097
-
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8061/eureka/
     healthcheck:
-      enabled: true  
+      enabled: true
       
 logging:
-  pattern: 
-    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n'
     
 management:
   endpoint:
     health:
-      show-details: always 
+      show-details: always
+    
+
+storage:
+  location: /temp/store         
+   
+spring:  
+  servlet:
+    multipart:
+      max-file-size: 100MB 
+      max-request-size: 100MB
+      enabled: true    
+  
+  
