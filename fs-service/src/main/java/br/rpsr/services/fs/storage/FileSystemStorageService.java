@@ -61,9 +61,9 @@ public class FileSystemStorageService implements StorageService {
 
 	@Override
 	public Path load(long id) {
-		
 
-		return rootLocation.resolve(id);;
+		// rootLocation.resolve(id);;
+		return null;
 	}
 
 	@Override
