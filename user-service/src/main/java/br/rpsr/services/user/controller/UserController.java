@@ -52,6 +52,7 @@ public class UserController {
 			@RequestHeader MultiValueMap<String, String> headers) {
 
 		System.out.println("**** user TOKEN=" + userName);
+		
 
 		headers.forEach((String key, List<String> list) -> {
 			System.out.println(key + " " + list.toString());
