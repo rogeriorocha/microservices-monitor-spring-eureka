@@ -10,7 +10,15 @@ logging:
   pattern: 
     console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
                   
-spring:   
+spring:
+  # zipkin    
+  zipkin:
+    base-url: http://localhost:9411
+   
+  sleuth:
+    sampler:
+      probability: 1.0
+  # zipkin fim               
   cloud:
     gateway:
       discovery:
@@ -52,3 +60,5 @@ spring:
         - Path=/fs/**
         filters:
         - RewritePath=/fs/(?<path>.*), /$\{path}                        
+        
+        
