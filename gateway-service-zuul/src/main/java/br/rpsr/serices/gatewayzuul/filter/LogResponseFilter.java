@@ -30,6 +30,7 @@ public class LogResponseFilter extends ZuulFilter {
 	public boolean shouldFilter() {
 		return true;
 	}
+	
 
 	@Override
 	public Object run() throws ZuulException {

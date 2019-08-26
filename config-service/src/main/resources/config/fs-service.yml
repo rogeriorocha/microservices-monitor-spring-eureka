@@ -15,8 +15,7 @@ management:
   endpoint:
     health:
       show-details: always
-    
-
+      
 storage:
   location: /temp/store         
    

@@ -48,4 +48,7 @@ zuul:
       service-id: department-service
     fs-service:
       path: /fs/**
-      service-id: fs-service  
+      service-id: fs-service
+    opa:
+      path: /xpto/**
+      url: http://localhost:3000/   

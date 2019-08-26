@@ -44,14 +44,12 @@ public class AddUserNameFilter extends ZuulFilter {
 		
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (auth != null) {
+		 
+		if ((auth != null) ) {
 			Object principal = auth.getPrincipal();
 			if (principal != null) {
 				//UserDetails userDetails = (UserDetails) principal;
-
 				requestContext.addZuulRequestHeader(USER_HEADER, (String) principal); //userDetails.getUsername());
-				
-				
 			}
 			
 		}
