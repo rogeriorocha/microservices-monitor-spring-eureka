@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,12 +13,15 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.Validate;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.itextpdf.text.DocumentException;
 
+import br.gov.mg.bdmg.commons.utils.StringUtil;
 import br.gov.mg.bdmg.commons.utils.file.constants.FileUtilConstants.Util;
 import br.gov.mg.bdmg.commons.utils.file.util.FilePDFUtil;
 import br.gov.mg.bdmg.commons.utils.file.util.FileUtil;
@@ -167,32 +171,32 @@ public class FSService {
 	}
 
 	public ArquivoDado getById(String id) {
-		
+
 		Optional<ArquivoDado> adOptional = arquivoDadoService.findById(Long.valueOf(id));
 		if (!adOptional.isPresent())
-    		return null;
+			return null;
 		else
 			return adOptional.get();
 	}
-	
+
 	/**
 	 * Método responsável por fazer união de pdf e retornar id do novo arquivo
 	 * gerado.
 	 *
 	 * @param ParamDTO.
 	 * @return Long.
-	 * @exception IOException,
-	 *                FileNotFoundException
+	 * @exception IOException, FileNotFoundException
 	 */
 	public Long unionPDFFile(ParamDTO paramTO) throws FileServiceException, IOException {
 		LOGGER.info("Class: FileServiceBean Method: unionPDFFile");
-		
+
 		ArquivoDado arquivoDado = null;
-		
+
 		Long codArqNew = null;
 		try {
 
-			String dscArq = Util.UNION + (paramTO.getPdf().length() > 200 ? paramTO.getPdf().substring(0, 200) : paramTO.getPdf());
+			String dscArq = Util.UNION
+					+ (paramTO.getPdf().length() > 200 ? paramTO.getPdf().substring(0, 200) : paramTO.getPdf());
 
 			arquivoDado = ArquivoDado.builder().setFlagMigr(ArquivoDado.Flags.MIGR).setAtivo(ArquivoDado.Flags.ATIVO)
 					.setCodigoCategoria(CODIGO_CATEGORIA_UNION).setDescricaoArquivo(dscArq);
@@ -221,7 +225,6 @@ public class FSService {
 
 			unionFileTmp.delete();
 
-
 		} catch (FileNotFoundException e) {
 			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			throw new FileServiceException(FILENOTFOUNDEXCEPTION + e.getMessage(), e);
@@ -234,11 +237,11 @@ public class FSService {
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			throw new FileServiceException(EXCEPTION + e.getMessage(), e);
-		} 
+		}
 
 		return codArqNew;
 	}
-	
+
 	private List<String> getLocalFiles(String pdf) throws IOException {
 		List<String> localFiles = new ArrayList<String>();
 		String[] files = pdf.split(",");
@@ -256,7 +259,37 @@ public class FSService {
 		}
 		return localFiles;
 	}
-	
-	
+
+	public byte[] encodeFile(String fromEncode, String toEncode, File file) throws FileNotFoundException, IOException {
+		if (StringUtil.nonEmpty(fromEncode)) {
+			InputStream inputStream = new FileInputStream(file);
+
+			byte[] byteFile = IOUtils.toByteArray(inputStream);
+			String decoded = FileUtil.decodedFile(fromEncode, byteFile);
+			if (StringUtil.nonEmpty(toEncode)) {
+				byte[] bsEncoded = FileUtil.encodedFile(toEncode, decoded);
+				return bsEncoded;
+			} else {
+				return decoded.getBytes();
+			}
+		} else {
+			InputStream inputStream = new FileInputStream(file);
+
+			byte[] byteFile = IOUtils.toByteArray(inputStream);
+			return byteFile;
+		}
+		
+
+	}
+
+	public byte[] download(ArquivoDado arquivoDado, String fromEncode, String toEncode) throws IOException {
+
+		
+
+		PathUtil pUtil = new PathUtil(arquivoDado.getId());
+		File file2Upload = pUtil.getFile(false);		
+
+		return encodeFile(fromEncode, toEncode, file2Upload);
+	}
 
 }
