@@ -16,8 +16,7 @@ management:
     health:
       show-details: always
       
-storage:
-  location: /temp/store         
+ 
    
 spring:  
   servlet:
@@ -34,3 +33,17 @@ spring:
       probability: 1.0
 # zipkin fim      
   
+  
+---
+spring:
+  profiles: local
+  
+storage:
+  location: /temp/store/local        
+  
+---
+spring:
+  profiles: dev
+  
+storage:
+  location: /temp/store/dev          

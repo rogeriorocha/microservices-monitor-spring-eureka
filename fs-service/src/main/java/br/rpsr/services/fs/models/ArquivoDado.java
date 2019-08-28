@@ -11,8 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "arquivo_dados", schema = "dbo", catalog = "bdseg")
-//Table(name = "arquivo_dados")
+//Table(name = "arquivo_dados", schema = "dbo", catalog = "bdseg")
+@Table(name = "arquivo_dados")
 public class ArquivoDado implements Serializable  {
 
 	private static final long serialVersionUID = 1L;

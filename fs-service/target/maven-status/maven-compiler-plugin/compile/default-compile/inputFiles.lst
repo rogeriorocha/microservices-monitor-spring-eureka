@@ -1,0 +1,15 @@
+C:\Users\rpsr\Documents\workspace-spring-tool-suite-4-4.3.1.RELEASE\wks\spring-microservices-eureka\fs-service\src\main\java\br\rpsr\services\fs\storage\StorageService.java
+C:\Users\rpsr\Documents\workspace-spring-tool-suite-4-4.3.1.RELEASE\wks\spring-microservices-eureka\fs-service\src\main\java\br\rpsr\services\fs\models\ArquivoDado.java
+C:\Users\rpsr\Documents\workspace-spring-tool-suite-4-4.3.1.RELEASE\wks\spring-microservices-eureka\fs-service\src\main\java\br\rpsr\services\fs\dtos\DadosDTO.java
+C:\Users\rpsr\Documents\workspace-spring-tool-suite-4-4.3.1.RELEASE\wks\spring-microservices-eureka\fs-service\src\main\java\br\rpsr\services\fs\dtos\InputDataFileDTO.java
+C:\Users\rpsr\Documents\workspace-spring-tool-suite-4-4.3.1.RELEASE\wks\spring-microservices-eureka\fs-service\src\main\java\br\rpsr\services\fs\controller\FSController.java
+C:\Users\rpsr\Documents\workspace-spring-tool-suite-4-4.3.1.RELEASE\wks\spring-microservices-eureka\fs-service\src\main\java\br\rpsr\services\fs\dtos\DadosFileDTO.java
+C:\Users\rpsr\Documents\workspace-spring-tool-suite-4-4.3.1.RELEASE\wks\spring-microservices-eureka\fs-service\src\main\java\br\rpsr\services\fs\service\FSService.java
+C:\Users\rpsr\Documents\workspace-spring-tool-suite-4-4.3.1.RELEASE\wks\spring-microservices-eureka\fs-service\src\main\java\br\rpsr\services\fs\repository\ArquivoDadoRepository.java
+C:\Users\rpsr\Documents\workspace-spring-tool-suite-4-4.3.1.RELEASE\wks\spring-microservices-eureka\fs-service\src\main\java\br\rpsr\services\fs\service\FileSystemStorageService.java
+C:\Users\rpsr\Documents\workspace-spring-tool-suite-4-4.3.1.RELEASE\wks\spring-microservices-eureka\fs-service\src\main\java\br\rpsr\services\fs\FSApplication.java
+C:\Users\rpsr\Documents\workspace-spring-tool-suite-4-4.3.1.RELEASE\wks\spring-microservices-eureka\fs-service\src\main\java\br\rpsr\services\fs\storage\StorageFileNotFoundException.java
+C:\Users\rpsr\Documents\workspace-spring-tool-suite-4-4.3.1.RELEASE\wks\spring-microservices-eureka\fs-service\src\main\java\br\rpsr\services\fs\exceptions\FileServiceException.java
+C:\Users\rpsr\Documents\workspace-spring-tool-suite-4-4.3.1.RELEASE\wks\spring-microservices-eureka\fs-service\src\main\java\br\rpsr\services\fs\dtos\ParamDTO.java
+C:\Users\rpsr\Documents\workspace-spring-tool-suite-4-4.3.1.RELEASE\wks\spring-microservices-eureka\fs-service\src\main\java\br\rpsr\services\fs\storage\StorageException.java
+C:\Users\rpsr\Documents\workspace-spring-tool-suite-4-4.3.1.RELEASE\wks\spring-microservices-eureka\fs-service\src\main\java\br\rpsr\services\fs\storage\StorageProperties.java
