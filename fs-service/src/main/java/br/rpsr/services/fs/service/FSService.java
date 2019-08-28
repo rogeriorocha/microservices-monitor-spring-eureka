@@ -1,4 +1,4 @@
-package br.rpsr.services.fs;
+package br.rpsr.services.fs.service;
 
 import java.io.File;
 import java.io.FileInputStream;

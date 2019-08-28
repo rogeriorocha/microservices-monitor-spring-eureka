@@ -1,4 +1,4 @@
-package br.rpsr.services.fs.storage;
+package br.rpsr.services.fs.service;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,6 +16,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+
+import br.rpsr.services.fs.storage.StorageException;
+import br.rpsr.services.fs.storage.StorageFileNotFoundException;
+import br.rpsr.services.fs.storage.StorageProperties;
+import br.rpsr.services.fs.storage.StorageService;
 
 @Service
 public class FileSystemStorageService implements StorageService {

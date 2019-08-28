@@ -1,20 +1,12 @@
 package br.rpsr.services.fs.controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.Validate;
 import org.apache.commons.lang3.StringUtils;
-import org.mapstruct.Context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,13 +24,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.gov.mg.bdmg.commons.utils.file.util.PathUtil;
-import br.rpsr.services.fs.FSService;
 import br.rpsr.services.fs.dtos.DadosDTO;
 import br.rpsr.services.fs.dtos.ParamDTO;
 import br.rpsr.services.fs.exceptions.FileServiceException;
 import br.rpsr.services.fs.models.ArquivoDado;
-import br.rpsr.services.fs.repository.ArquivoDadoRepository;
+import br.rpsr.services.fs.service.FSService;
 import br.rpsr.services.fs.storage.StorageService;
 
 @RestController
@@ -50,12 +40,8 @@ public class FSController {
 	@Autowired
 	private FSService fileService;
 
-	private final StorageService storageService;
 
-	@Autowired
-	public FSController(StorageService storageService) {
-		this.storageService = storageService;
-	}
+ 	
 
 	@GetMapping("/union")
 	public ResponseEntity<?> unionPDFs(@RequestParam("pdfs") String pdfs, @RequestParam("filename") String filename) {
