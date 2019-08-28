@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,7 +30,6 @@ import br.rpsr.services.fs.dtos.ParamDTO;
 import br.rpsr.services.fs.exceptions.FileServiceException;
 import br.rpsr.services.fs.models.ArquivoDado;
 import br.rpsr.services.fs.service.FSService;
-import br.rpsr.services.fs.storage.StorageService;
 
 @RestController
 //MultipartConfig(maxFileSize = 10* 1024*1024*1024, maxRequestSize = 10 * 1024*1024*1024)
@@ -39,9 +39,6 @@ public class FSController {
 
 	@Autowired
 	private FSService fileService;
-
-
- 	
 
 	@GetMapping("/union")
 	public ResponseEntity<?> unionPDFs(@RequestParam("pdfs") String pdfs, @RequestParam("filename") String filename) {
@@ -82,27 +79,23 @@ public class FSController {
 			throws IOException {
 
 		LOGGER.info("Class: download Method: download - Codigo Arquivo: " + id);
-		
-		
+
 		ArquivoDado arquivoDado = fileService.getById(id);
-		
+
 		Validate.notNull(arquivoDado, "id " + id + " nao encontrado!");
-		
-		
+
 		byte[] bs = fileService.download(arquivoDado, fromEncode, toEncode);
 
-				 
 		String nomArquivo = arquivoDado.getNomeOrigem();
-		
+
 		if (!StringUtils.isEmpty(filenameSet))
 			nomArquivo = filenameSet;
-		 
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
 		headers.add("Pragma", "no-cache");
 		headers.add("Expires", "0");
-		headers.add("Content-Disposition", "attachment; filename=" +nomArquivo  + "");
+		headers.add("Content-Disposition", "attachment; filename=" + nomArquivo + "");
 
 		ByteArrayResource resource = new ByteArrayResource(bs);
 
@@ -111,13 +104,22 @@ public class FSController {
 
 	}
 
-	@PostMapping("/upload/{CATEGORIA}")
-	public Map<String, Object> uploadFile(@PathVariable(name = "CATEGORIA", required = false) String categoria,
-			@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes)
+	@PostMapping("/upload")
+	public Map<String, Object> uploadFile(@RequestParam(name = "categoria", required = false, defaultValue = "") String paramCategoria,
+			@RequestParam(name = "descricao", required = false) String descricao,
+			@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes,
+			@RequestHeader(value = "x-coduser",required = false,defaultValue = "") String paramCodigoUsuario)
 			throws FileServiceException, IOException {
 
 		ParamDTO paramTO = new ParamDTO();
-		paramTO.setCodigoCategoria(StringUtils.isEmpty(categoria) ? Integer.valueOf(1) : Integer.valueOf(categoria));
+		
+
+		
+		paramTO.setCodigoCategoria(
+				StringUtils.isEmpty(paramCategoria) ? null : Integer.valueOf(paramCategoria));
+		paramTO.setDescricao(descricao);
+		paramTO.setUsuario(paramCodigoUsuario);
+
 		DadosDTO dadosDTO = new DadosDTO();
 		byte[] bytes = IOUtils.toByteArray(file.getInputStream());
 		dadosDTO.setInputStream(bytes);

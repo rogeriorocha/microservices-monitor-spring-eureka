@@ -16,6 +16,8 @@ import javax.persistence.Table;
 public class ArquivoDado implements Serializable  {
 
 	private static final long serialVersionUID = 1L;
+	
+	
 
 	public interface Flags {
 		String MIGR = "S";

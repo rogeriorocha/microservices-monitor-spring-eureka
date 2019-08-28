@@ -33,6 +33,17 @@ public class ParamDTO implements Serializable {
 	private String pdf;
 
 	private String filename;
+	
+	private String descricao;
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public ParamDTO setDescricao(String descricao) {
+		this.descricao = descricao;
+		return this;
+	}
 
 	public static ParamDTO builder() {
 		return new ParamDTO();

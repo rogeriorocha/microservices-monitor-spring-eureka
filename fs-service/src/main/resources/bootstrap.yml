@@ -8,4 +8,4 @@ spring:
     url: jdbc:sqlserver://desesqlbdmg:2002;databaseName=bdseg
     username: sist_rpsr
     password: Ho1#h=j4
-    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver  banner:    location: banner-dev.txt

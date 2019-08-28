@@ -43,9 +43,12 @@ public class FSService {
 	private static final String UNKNOW = "unknow";
 	private static final String ARQUIVO_DADO_NAO_ENCONTRADO = "Arquivo Dado nao encontrado";
 	private static final String ERRO_ALTERAR_STATUS = "Falha ao Alterar Status do Arquivo";
+	private static final Integer CODIGO_DEFAULT = 1;
 	private static final Integer CODIGO_CATEGORIA_UNION = 26;
 	private static final Integer CODIGO_CATEGORIA_WATERMARK = 27;
 	private static final String QUERY_MAGICA_JFS_EXPURGO = "JFS_Expurgo";
+	
+	
 
 	@Autowired
 	ArquivoDadoRepository arquivoDadoService;
@@ -58,9 +61,16 @@ public class FSService {
 		Long id = null;
 
 		try {
+			Long codigoUsuarioIncl = null;
+			if (!paramTO.getUsuario().isEmpty()) 
+				codigoUsuarioIncl = Long.valueOf(paramTO.getUsuario());
+			
 
-			arquivoDadoTemp = ArquivoDado.builder().setFlagMigr(ArquivoDado.Flags.MIGR)
-					.setAtivo(ArquivoDado.Flags.ATIVO).setCodigoCategoria(paramTO.getCodigoCategoria());
+			arquivoDadoTemp = ArquivoDado.builder()
+					.setFlagMigr(ArquivoDado.Flags.MIGR)
+					.setAtivo(ArquivoDado.Flags.ATIVO)
+					.setCodigoUsuarioIncl(codigoUsuarioIncl)
+					.setCodigoCategoria(paramTO.getCodigoCategoria() == null ? CODIGO_DEFAULT :   paramTO.getCodigoCategoria());
 
 			arquivoDado = arquivoDadoService.save(arquivoDadoTemp);
 
@@ -75,7 +85,7 @@ public class FSService {
 			arquivoDado.setTamanhoArquivo(fileToSave.length()).setHash(repHash).setDataIncl(new Date())
 					.setNomeOrigem(paramTO.getDadosTO().getFileName())
 					// .setCodigoUsuarioIncl(getNameUserFile(paramTO.getDadosFileTO().getUsuario()))
-					.setDescricaoArquivo(paramTO.getDadosFileTO().getDescricao()).setId(id)
+					.setDescricaoArquivo(paramTO.getDescricao()).setId(id)
 					.setEnderecoArquivo(fileToSave.getPath());
 
 			arquivoDadoService.save(arquivoDado);
@@ -135,9 +145,12 @@ public class FSService {
 
 			String repHash = PathUtil.saveFile(file, newFile);
 
-			arquivoDado.setTamanhoArquivo(newFile.length()).setHash(repHash).setDataIncl(new Date())
+			arquivoDado.setTamanhoArquivo(newFile.length())
+			        .setHash(repHash)
+			        .setDataIncl(new Date())
 					.setNomeOrigem(getFileName(paramTO.getFilename(), newID))
-					.setDescricaoArquivo(Util.WATERMARK + newID);
+					.setDescricaoArquivo(Util.WATERMARK + paramTO.getId())
+					.setEnderecoArquivo(newFile.getPath());
 
 			arquivoDado = arquivoDadoService.save(arquivoDado);
 
@@ -219,7 +232,8 @@ public class FSService {
 			String repHash = PathUtil.saveFile(file, novoArquivo);
 
 			arquivoDado.setTamanhoArquivo(novoArquivo.length()).setHash(repHash).setDataIncl(new Date())
-					.setNomeOrigem(getFileName(paramTO.getFilename(), codArqNew));
+					.setNomeOrigem(getFileName(paramTO.getFilename(), codArqNew))
+					.setEnderecoArquivo(novoArquivo.getPath());
 
 			arquivoDado = arquivoDadoService.save(arquivoDado);
 
@@ -283,12 +297,8 @@ public class FSService {
 	}
 
 	public byte[] download(ArquivoDado arquivoDado, String fromEncode, String toEncode) throws IOException {
-
-		
-
 		PathUtil pUtil = new PathUtil(arquivoDado.getId());
 		File file2Upload = pUtil.getFile(false);		
-
 		return encodeFile(fromEncode, toEncode, file2Upload);
 	}
 
