@@ -15,7 +15,7 @@ public class AddUserNameFilter extends ZuulFilter {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(AddUserNameFilter.class);
 
-	public static final String USER_HEADER = "X-User-Header";
+	public static final String USER_HEADER = "X-Request-User";
 
 	@Override
 	public String filterType() { 

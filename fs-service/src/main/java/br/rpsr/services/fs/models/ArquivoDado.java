@@ -16,8 +16,7 @@ import javax.persistence.Table;
 public class ArquivoDado implements Serializable  {
 
 	private static final long serialVersionUID = 1L;
-	
-	
+
 
 	public interface Flags {
 		String MIGR = "S";
@@ -44,6 +43,9 @@ public class ArquivoDado implements Serializable  {
 
 	@Column(name = "dat_incl")
 	private Date dataIncl;
+	
+	@Column(name = "dat_expur")
+	private Date dataExpurgo;
 
 	@Column(name = "dsc_arq")
 	private String descricaoArquivo;

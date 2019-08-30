@@ -8,13 +8,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.Validate;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,8 +47,6 @@ public class FSService {
 	private static final Integer CODIGO_CATEGORIA_UNION = 26;
 	private static final Integer CODIGO_CATEGORIA_WATERMARK = 27;
 	private static final String QUERY_MAGICA_JFS_EXPURGO = "JFS_Expurgo";
-	
-	
 
 	@Autowired
 	ArquivoDadoRepository arquivoDadoService;
@@ -62,15 +60,12 @@ public class FSService {
 
 		try {
 			Long codigoUsuarioIncl = null;
-			if (!paramTO.getUsuario().isEmpty()) 
+			if (!paramTO.getUsuario().isEmpty())
 				codigoUsuarioIncl = Long.valueOf(paramTO.getUsuario());
-			
 
-			arquivoDadoTemp = ArquivoDado.builder()
-					.setFlagMigr(ArquivoDado.Flags.MIGR)
-					.setAtivo(ArquivoDado.Flags.ATIVO)
-					.setCodigoUsuarioIncl(codigoUsuarioIncl)
-					.setCodigoCategoria(paramTO.getCodigoCategoria() == null ? CODIGO_DEFAULT :   paramTO.getCodigoCategoria());
+			arquivoDadoTemp = ArquivoDado.builder().setFlagMigr(ArquivoDado.Flags.MIGR)
+					.setAtivo(ArquivoDado.Flags.ATIVO).setCodigoUsuarioIncl(codigoUsuarioIncl).setCodigoCategoria(
+							paramTO.getCodigoCategoria() == null ? CODIGO_DEFAULT : paramTO.getCodigoCategoria());
 
 			arquivoDado = arquivoDadoService.save(arquivoDadoTemp);
 
@@ -85,8 +80,7 @@ public class FSService {
 			arquivoDado.setTamanhoArquivo(fileToSave.length()).setHash(repHash).setDataIncl(new Date())
 					.setNomeOrigem(paramTO.getDadosTO().getFileName())
 					// .setCodigoUsuarioIncl(getNameUserFile(paramTO.getDadosFileTO().getUsuario()))
-					.setDescricaoArquivo(paramTO.getDescricao()).setId(id)
-					.setEnderecoArquivo(fileToSave.getPath());
+					.setDescricaoArquivo(paramTO.getDescricao()).setId(id).setEnderecoArquivo(fileToSave.getPath());
 
 			arquivoDadoService.save(arquivoDado);
 
@@ -145,12 +139,9 @@ public class FSService {
 
 			String repHash = PathUtil.saveFile(file, newFile);
 
-			arquivoDado.setTamanhoArquivo(newFile.length())
-			        .setHash(repHash)
-			        .setDataIncl(new Date())
+			arquivoDado.setTamanhoArquivo(newFile.length()).setHash(repHash).setDataIncl(new Date())
 					.setNomeOrigem(getFileName(paramTO.getFilename(), newID))
-					.setDescricaoArquivo(Util.WATERMARK + paramTO.getId())
-					.setEnderecoArquivo(newFile.getPath());
+					.setDescricaoArquivo(Util.WATERMARK + paramTO.getId()).setEnderecoArquivo(newFile.getPath());
 
 			arquivoDado = arquivoDadoService.save(arquivoDado);
 
@@ -292,14 +283,30 @@ public class FSService {
 			byte[] byteFile = IOUtils.toByteArray(inputStream);
 			return byteFile;
 		}
-		
 
 	}
 
 	public byte[] download(ArquivoDado arquivoDado, String fromEncode, String toEncode) throws IOException {
 		PathUtil pUtil = new PathUtil(arquivoDado.getId());
-		File file2Upload = pUtil.getFile(false);		
+		File file2Upload = pUtil.getFile(false);
 		return encodeFile(fromEncode, toEncode, file2Upload);
+	}
+
+	public long expurgar() {
+
+		
+		List<ArquivoDado> lst = arquivoDadoService.findTop10ByAtivoAndDataExpurgoLessThanEqualOrderByDataInclAsc(ArquivoDado.Flags.ATIVO, new Date());
+
+		for (Iterator<ArquivoDado> it = lst.iterator(); it.hasNext();) {
+			ArquivoDado arquivoDado = it.next();
+			
+			arquivoDado.setAtivo(ArquivoDado.Flags.INATIVO);
+			arquivoDadoService.save(arquivoDado);
+			
+			System.out.println("DELETE " + arquivoDado.getId());
+		}
+
+		return lst.size();
 	}
 
 }

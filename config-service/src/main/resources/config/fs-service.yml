@@ -4,6 +4,7 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8061/eureka/
+#      defaultZone: ${DISCOVERY_SERVER:'http://localhost:8061/eureka/'}      
     healthcheck:
       enabled: true
       

@@ -34,6 +34,9 @@ public class ProxyApi {
 		swaggerResource.setName(name);
 		swaggerResource.setLocation("/" + location + "/v2/api-docs");
 		swaggerResource.setSwaggerVersion(version);
+		
+		
+		
 		return swaggerResource;
 	}
 
