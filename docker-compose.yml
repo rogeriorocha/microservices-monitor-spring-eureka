@@ -81,6 +81,56 @@ services:
             - discovery-service
         logging:
             driver: json-file
+            
+    auth-service:
+        container_name: auth-service
+        build:
+            context: auth-service/.
+            dockerfile: Dockerfile
+        image: auth-service:latest
+        entrypoint: /app/entrypoint.sh
+        environment:
+            SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://config-server:8088"}}}}'
+#        expose:
+#            - 8060
+        ports:
+            - 8098:8098
+        networks:
+            - spring-cloud-network
+        links:
+            - config-server:config-server
+            - discovery-service:discovery-service  
+        depends_on:
+            - config-server
+            - discovery-service
+        logging:
+            driver: json-file
+            
+    gateway-service-zuul:
+        container_name: gateway-service-zuul
+        build:
+            context: gateway-service-zuul/.
+            dockerfile: Dockerfile
+        image: auth-service:latest
+        entrypoint: /app/entrypoint.sh
+        environment:
+            SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://config-server:8088"}}}}'
+#        expose:
+#            - 8060
+        ports:
+            - 8098:8098
+        networks:
+            - spring-cloud-network
+        links:
+            - config-server:config-server
+            - discovery-service:discovery-service  
+        depends_on:
+            - config-server
+            - discovery-service
+        logging:
+            driver: json-file
+            
+            
 networks:
     spring-cloud-network:
         driver: bridge
