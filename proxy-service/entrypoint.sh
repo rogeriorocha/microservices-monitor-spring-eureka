@@ -9,7 +9,8 @@ done
 while ! nc -z discovery-service 8061 ; do
     echo "Waiting for upcoming Discovery Service"
     sleep 2
-done
-
-java -jar -Djava.security.egd=file:/dev/./urandom /app/proxy-service-1.0-SNAPSHOT.jar
+done  
+ 
+ 
+java -jar -Djava.security.egd=file:/dev/./urandom 	-Dspring.profiles.active=docker /app/proxy-service-1.0-SNAPSHOT.jar
 
