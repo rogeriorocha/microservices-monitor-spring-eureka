@@ -1,7 +1,0 @@
-br\rpsr\services\gatewayzuul\security\JwtAuthenticationEntryPoint.class
-br\rpsr\services\gatewayzuul\security\SecurityTokenConfig.class
-br\rpsr\services\gatewayzuul\filter\AddUserNameFilter.class
-br\rpsr\services\gatewayzuul\filter\LogRequestFilter.class
-br\rpsr\services\gatewayzuul\filter\LogResponseFilter.class
-br\rpsr\services\gatewayzuul\security\JwtTokenAuthenticationFilter.class
-br\rpsr\services\gatewayzuul\GatewayZuulApplication.class

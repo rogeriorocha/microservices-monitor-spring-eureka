@@ -1,3 +1,3 @@
-C:\Users\rpsr\Documents\workspace-spring-tool-suite-4-4.3.1.RELEASE\wks\spring-microservices-eureka\auth-common-service\src\main\java\br\rpsr\services\authCommon\AuthCommonApplication.java
-C:\Users\rpsr\Documents\workspace-spring-tool-suite-4-4.3.1.RELEASE\wks\spring-microservices-eureka\auth-common-service\src\main\java\br\rpsr\services\authCommon\security\JwtConfig.java
-C:\Users\rpsr\Documents\workspace-spring-tool-suite-4-4.3.1.RELEASE\wks\spring-microservices-eureka\auth-common-service\src\main\java\br\rpsr\services\authCommon\security\UserRole.java
+/home/rpsr/microservices-spring-eureka/auth-common-service/src/main/java/br/rpsr/services/authCommon/security/UserRole.java
+/home/rpsr/microservices-spring-eureka/auth-common-service/src/main/java/br/rpsr/services/authCommon/AuthCommonApplication.java
+/home/rpsr/microservices-spring-eureka/auth-common-service/src/main/java/br/rpsr/services/authCommon/security/JwtConfig.java

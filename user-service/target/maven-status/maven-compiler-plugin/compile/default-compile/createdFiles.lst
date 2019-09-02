@@ -1,6 +1,0 @@
-br\rpsr\services\user\UserApplication.class
-br\rpsr\services\user\model\User.class
-br\rpsr\services\user\UserApplication$RestTemplateConfig.class
-br\rpsr\services\user\repository\UserRepository.class
-br\rpsr\services\user\controller\UserController.class
-br\rpsr\services\user\controller\CustomHealthIndicator.class

@@ -5,5 +5,4 @@ EXPOSE 8088
 COPY target/$APP_FILE $APP_HOME/
 WORKDIR $APP_HOME
 ENTRYPOINT ["sh", "-c"]
-CMD ["exec java -jar $APP_FILE -Djava.security.egd=file:/dev/./urandom -Dspring.profiles.active=native"]
-#ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom","-Dspring.profiles.active=dev","-jar","$APP_FILE"]
+CMD ["exec java -jar -Djava.security.egd=file:/dev/./urandom -Dspring.profiles.active=native $APP_FILE"]
