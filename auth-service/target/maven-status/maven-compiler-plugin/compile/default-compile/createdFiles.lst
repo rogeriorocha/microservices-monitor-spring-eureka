@@ -1,6 +1,0 @@
-br\rpsr\services\auth\security\JwtUsernameAndPasswordAuthenticationFilter.class
-br\rpsr\services\auth\security\JwtUsernameAndPasswordAuthenticationFilter$UserCredentials.class
-br\rpsr\services\auth\security\UserDetailsServiceImpl$AppUser.class
-br\rpsr\services\auth\security\SecurityCredentialsConfig.class
-br\rpsr\services\auth\ApplicationAuth.class
-br\rpsr\services\auth\security\UserDetailsServiceImpl.class

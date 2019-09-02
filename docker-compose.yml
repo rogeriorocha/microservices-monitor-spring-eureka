@@ -91,10 +91,10 @@ services:
         entrypoint: /app/entrypoint.sh
         environment:
             SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://config-server:8088"}}}}'
-#        expose:
-#            - 8060
+        expose:
+            - 8078
         ports:
-            - 8098:8098
+            - 8078:8078
         networks:
             - spring-cloud-network
         links:
@@ -115,10 +115,10 @@ services:
         entrypoint: /app/entrypoint.sh
         environment:
             SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://config-server:8088"}}}}'
-#        expose:
-#            - 8060
+        expose:
+            - 8077
         ports:
-            - 8098:8098
+            - 8077:8077
         networks:
             - spring-cloud-network
         links:
