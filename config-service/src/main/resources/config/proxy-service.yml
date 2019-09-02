@@ -1,5 +1,11 @@
 server:
   port: 8060
+  
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8061/eureka/
+        
 
 logging:
   pattern: 
@@ -48,12 +54,3 @@ eureka:
     serviceUrl:
       defaultZone: http://discovery-service:8061/eureka/ 
 
----
-spring:
-  profiles: local
-      
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8061/eureka/
-      

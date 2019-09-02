@@ -49,6 +49,15 @@ zuul:
     fs-service:
       path: /fs/**
       service-id: fs-service
-    opa:
-      path: /xpto/**
-      url: http://localhost:3000/   
+#    opa:
+#      path: /xpto/**
+#      url: http://localhost:3000/   
+
+---
+spring:
+  profiles: docker
+  
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-service:8061/eureka/       

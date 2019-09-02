@@ -46,3 +46,12 @@ spring:
   
 storage:
   location: /temp/store/dev          
+  
+---
+spring:
+  profiles: docker
+  
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-service:8061/eureka/         

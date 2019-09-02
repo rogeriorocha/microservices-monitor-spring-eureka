@@ -27,7 +27,6 @@ spring:
       probability: 1.0
 # zipkin fim    
 
-
 ---
 spring:
   profiles: docker
