@@ -1,5 +1,0 @@
-/home/rpsr/microservices-spring-eureka/user-service/src/main/java/br/rpsr/services/user/controller/UserController.java
-/home/rpsr/microservices-spring-eureka/user-service/src/main/java/br/rpsr/services/user/UserApplication.java
-/home/rpsr/microservices-spring-eureka/user-service/src/main/java/br/rpsr/services/user/repository/UserRepository.java
-/home/rpsr/microservices-spring-eureka/user-service/src/main/java/br/rpsr/services/user/model/User.java
-/home/rpsr/microservices-spring-eureka/user-service/src/main/java/br/rpsr/services/user/controller/CustomHealthIndicator.java

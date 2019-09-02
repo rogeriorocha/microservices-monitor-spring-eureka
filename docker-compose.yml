@@ -35,9 +35,56 @@ services:
             - config-server
         logging:
             driver: json-file
+    proxy-service:
+        container_name: proxy-service
+        build:
+            context: proxy-service/.
+            dockerfile: Dockerfile
+        image: proxy-service:latest
+        entrypoint: /app/entrypoint.sh
+        environment:
+            SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://config-server:8088"}}}}'
+        expose:
+            - 8060
+        ports:
+            - 8060:8060
+        networks:
+            - spring-cloud-network
+        links:
+            - config-server:config-server
+            - discovery-service:discovery-service
+        depends_on:
+            - config-server
+            - discovery-service
+        logging:
+            driver: json-file
+    user-service:
+        container_name: user-service
+        build:
+            context: user-service/.
+            dockerfile: Dockerfile
+        image: user-service:latest
+        entrypoint: /app/entrypoint.sh
+        environment:
+            SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://config-server:8088"}}}}'
+#        expose:
+#            - 8060
+        ports:
+            - 8098:8098
+        networks:
+            - spring-cloud-network
+        links:
+            - config-server:config-server
+            - discovery-service:discovery-service  
+        depends_on:
+            - config-server
+            - discovery-service
+        logging:
+            driver: json-file
 networks:
     spring-cloud-network:
         driver: bridge
 #volumes:
 #    spring-cloud-config-repo:
 #        external: true
+
