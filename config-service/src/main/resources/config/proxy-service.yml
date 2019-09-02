@@ -42,3 +42,13 @@ spring:
     sampler:
       probability: 1.0
 # zipkin fim    
+
+
+---
+spring:
+  profiles: docker
+  
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://config-service:8061/eureka/ 
