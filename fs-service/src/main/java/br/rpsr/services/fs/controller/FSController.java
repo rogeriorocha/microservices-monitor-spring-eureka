@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.Validate;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,7 +88,8 @@ public class FSController {
 
 		String nomArquivo = arquivoDado.getNomeOrigem();
 
-		if (!StringUtils.isEmpty(filenameSet))
+		
+		if ((filenameSet !=null) && !filenameSet.isEmpty())
 			nomArquivo = filenameSet;
 
 		HttpHeaders headers = new HttpHeaders();
@@ -115,7 +115,7 @@ public class FSController {
 
 		ParamDTO paramTO = new ParamDTO();
 
-		paramTO.setCodigoCategoria(StringUtils.isEmpty(paramCategoria) ? null : Integer.valueOf(paramCategoria));
+		paramTO.setCodigoCategoria(((paramCategoria== null) || paramCategoria.isEmpty() ) ? null : Integer.valueOf(paramCategoria));
 		paramTO.setDescricao(descricao);
 		paramTO.setUsuario(paramCodigoUsuario);
 

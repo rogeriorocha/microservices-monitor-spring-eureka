@@ -1,14 +1,8 @@
 package br.rpsr.services.fs.dtos;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
-
-import br.gov.mg.bdmg.commons.constants.NumericalConstants.Base.Decimal;
-import br.gov.mg.bdmg.commons.utils.file.constants.FileUtilConstants;
 
 public class InputDataFileDTO {
 
