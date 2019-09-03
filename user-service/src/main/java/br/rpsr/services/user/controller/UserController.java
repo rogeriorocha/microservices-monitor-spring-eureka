@@ -62,7 +62,7 @@ public class UserController {
 	}
 
 	@GetMapping("/all")
-	public List<User> findAll() {
+	public List<User> findAll2() {
 
 		LOGGER.info("findAll");
 		return repository.findAll();
