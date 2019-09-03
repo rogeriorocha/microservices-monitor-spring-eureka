@@ -130,10 +130,9 @@ services:
     environment:
       SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://config-server:8088"}}}}'
     expose:
-      - 8080
+      - 8085
     ports:
-      - 8080:8080
-      - 8081:8081      
+      - 8085:8085
     networks:
         - spring-cloud-network
     links:
