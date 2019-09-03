@@ -12,4 +12,3 @@ while ! nc -z discovery-service 8061 ; do
 done
 
 java -jar -Djava.security.egd=file:/dev/./urandom -Dspring.profiles.active=docker /app/user-service-1.0.0-SNAPSHOT.jar
-
