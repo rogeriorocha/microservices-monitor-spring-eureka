@@ -12,11 +12,14 @@ services:
       - 9090
     ports:
       - 9090:9090
+    networks:
+        - spring-cloud-network
     links:
       - cadvisor:cadvisor
+      - user-service:app
     depends_on:
       - cadvisor
-#      - app
+      - user-service
 
   cadvisor:
     image: google/cadvisor:v0.27.3
@@ -29,6 +32,9 @@ services:
       - 8090:8080
     expose:
       - 8090
+    networks:
+        - spring-cloud-network
+      
 
   grafana:
     image: grafana/grafana:4.6.3
@@ -111,6 +117,7 @@ services:
         - 8060:8060
     networks:
         - spring-cloud-network
+        
     links:
         - config-server:config-server
         - discovery-service:discovery-service
