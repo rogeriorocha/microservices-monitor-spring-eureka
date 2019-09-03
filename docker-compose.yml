@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
     config-server:
         container_name: config-server
@@ -14,6 +14,17 @@ services:
         #    - spring-cloud-config-repo:/var/lib/spring-cloud/config-repo
         logging:
             driver: json-file
+       # reservations:
+       #     mem_limit: 300m
+       #     mem_reservation: 100m
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.010'
+                    memory: 100M
+                reservations:
+                    cpus: '0.0001'
+                    memory: 30M
     discovery-service:
         container_name: discovery-service
         build:
@@ -23,6 +34,7 @@ services:
         entrypoint: /app/entrypoint.sh
         environment:
             SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://config-server:8088"}}}}'
+            JAVA_OPTS: "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction=1"
         expose:
             - 8061
         ports:
@@ -35,6 +47,15 @@ services:
             - config-server
         logging:
             driver: json-file
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.010'
+                    memory: 100M
+                reservations:
+                    cpus: '0.0001'
+                    memory: 30M
+
     proxy-service:
         container_name: proxy-service
         build:
