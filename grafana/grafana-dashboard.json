@@ -91,12 +91,12 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "delta(counter_status_200_cat[1m])",
+              "expr": "delta(counter_status_200_all[1m])",
               "format": "time_series",
               "instant": false,
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "/cat",
+              "legendFormat": "/all",
               "refId": "A",
               "step": 4
             },

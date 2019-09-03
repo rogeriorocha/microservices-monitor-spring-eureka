@@ -16,7 +16,7 @@ services:
         - spring-cloud-network
     links:
       - cadvisor:cadvisor
-      - user-service:app
+      - user-service:user-service
     depends_on:
       - cadvisor
       - user-service

@@ -17,7 +17,7 @@ rule_files:
 
 # A scrape configuration containing exactly one endpoint to scrape:
 scrape_configs:
-  - job_name: 'app'
+  - job_name: 'user-service'
 
     scrape_interval: 5s
 
