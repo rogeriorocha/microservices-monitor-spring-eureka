@@ -6,9 +6,26 @@ server:
 # ----------------------------------------
 endpoints:
   sensitive: false
+  
+  
 management:  
-  security.enabled: false
-  port: 8080
+  #security.enabled: false
+  #port: 8080
+  endpoints.web.exposure.include: metrics,prometheus
+  endpoint:
+    metrics.enabled: true
+    prometheus.enabled: true
+  metrics.export.prometheus.enabled: true
+  
+#management.endpoints.web.exposure.include=metrics,prometheus
+#management.endpoint.metrics.enabled=true
+#management.endpoint.prometheus.enabled=true
+#management.metrics.export.prometheus.enabled=true  
+    
+  
+  
+#management.metrics.export.prometheus.enabled=true
+  
 #management.address=127.0.0.1
 #security.user.name=admin
 #security.user.password=DONT_DO_THIS  
