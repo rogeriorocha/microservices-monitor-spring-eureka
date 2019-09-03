@@ -5,16 +5,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 
-import io.prometheus.client.spring.boot.EnablePrometheusEndpoint;
-import io.prometheus.client.spring.boot.EnableSpringBootMetricsCollector;
-
 @SpringBootApplication
 //EnableEurekaClient 	// It acts as a eureka client
 @EnableZuulProxy		// Enable Zuul
 @EnableDiscoveryClient 
-
-@EnablePrometheusEndpoint
-@EnableSpringBootMetricsCollector
+//EnablePrometheusEndpoint
+//EnableSpringBootMetricsCollector
 public class GatewayZuulApplication {
 
 	public static void main(String[] args) {

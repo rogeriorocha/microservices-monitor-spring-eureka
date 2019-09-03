@@ -10,7 +10,6 @@
   "properties": [
     {
       "sourceType": "br.rpsr.services.fs.storage.StorageProperties",
-      "defaultValue": "upload-dir",
       "name": "storage.location",
       "description": "Folder location for storing files",
       "type": "java.lang.String"

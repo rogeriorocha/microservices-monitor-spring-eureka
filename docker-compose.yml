@@ -128,11 +128,12 @@ services:
     image: user-service:latest
     entrypoint: /app/entrypoint.sh
     environment:
-        SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://config-server:8088"}}}}'
-#         expose:
-#          - 8060
+      SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://config-server:8088"}}}}'
+    expose:
+      - 8080
     ports:
-        - 8098:8098
+      - 8080:8080
+      - 8081:8081      
     networks:
         - spring-cloud-network
     links:
@@ -178,11 +179,9 @@ services:
     environment:
       SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://config-server:8088"}}}}'
     expose:
-      - 8080
+      - 8077
     ports:
-      - 8080:8080
-      - 8081:8081
-      
+      - 8077:8077
     networks:
       - spring-cloud-network
     links:
