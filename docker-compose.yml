@@ -1,160 +1,201 @@
-version: '3'
+version: '3.6'
 services:
-    config-server:
-        container_name: config-server
-        build:
-            context: config-service/.
-            dockerfile: Dockerfile
-        image: config-server:latest
-        expose:
-            - 8088
-        networks:
-            - spring-cloud-network
-        #volumes:
-        #    - spring-cloud-config-repo:/var/lib/spring-cloud/config-repo
-        logging:
-            driver: json-file
-       # reservations:
-       #     mem_limit: 300m
-       #     mem_reservation: 100m
-        deploy:
-            resources:
-                limits:
-                    cpus: '0.010'
-                    memory: 100M
-                reservations:
-                    cpus: '0.0001'
-                    memory: 30M
-    discovery-service:
-        container_name: discovery-service
-        build:
-            context: discovery-service/.
-            dockerfile: Dockerfile
-        image: discovery-service:latest
-        entrypoint: /app/entrypoint.sh
-        environment:
-            SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://config-server:8088"}}}}'
-            JAVA_OPTS: "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction=1"
-        expose:
-            - 8061
-        ports:
-            - 8061:8061
-        networks:
-            - spring-cloud-network
-        links:
-            - config-server:config-server
-        depends_on:
-            - config-server
-        logging:
-            driver: json-file
-        deploy:
-            resources:
-                limits:
-                    cpus: '0.010'
-                    memory: 100M
-                reservations:
-                    cpus: '0.0001'
-                    memory: 30M
+  prometheus:
+    image: prom/prometheus:v1.8.2
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+      - ./data/prometheus/:/prometheus
+    command:
+      - '-config.file=/etc/prometheus/prometheus.yml'
+      - '-storage.local.path=/prometheus'
+    expose:
+      - 9090
+    ports:
+      - 9090:9090
+    links:
+      - cadvisor:cadvisor
+    depends_on:
+      - cadvisor
+      - app
 
-    proxy-service:
-        container_name: proxy-service
-        build:
-            context: proxy-service/.
-            dockerfile: Dockerfile
-        image: proxy-service:latest
-        entrypoint: /app/entrypoint.sh
-        environment:
-            SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://config-server:8088"}}}}'
-        expose:
-            - 8060
-        ports:
-            - 8060:8060
-        networks:
-            - spring-cloud-network
-        links:
-            - config-server:config-server
-            - discovery-service:discovery-service
-        depends_on:
-            - config-server
-            - discovery-service
-        logging:
-            driver: json-file
-    user-service:
-        container_name: user-service
-        build:
-            context: user-service/.
-            dockerfile: Dockerfile
-        image: user-service:latest
-        entrypoint: /app/entrypoint.sh
-        environment:
-            SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://config-server:8088"}}}}'
-#        expose:
-#            - 8060
-        ports:
-            - 8098:8098
-        networks:
-            - spring-cloud-network
-        links:
-            - config-server:config-server
-            - discovery-service:discovery-service  
-        depends_on:
-            - config-server
-            - discovery-service
-        logging:
-            driver: json-file
+  cadvisor:
+    image: google/cadvisor:v0.27.3
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    ports:
+      - 8090:8080
+    expose:
+      - 8090
+
+  grafana:
+    image: grafana/grafana:4.6.3
+    depends_on:
+      - prometheus
+    ports:
+      - 3000:3000
+    volumes:
+      - ./data/grafana/:/var/lib/grafana
+
+
+  config-server:
+    container_name: config-server
+    build:
+        context: config-service/.
+        dockerfile: Dockerfile
+    image: config-server:latest
+    expose:
+        - 8088
+    networks:
+        - spring-cloud-network
+    #volumes:
+    #    - spring-cloud-config-repo:/var/lib/spring-cloud/config-repo
+    logging:
+        driver: json-file
+    # reservations:
+    #     mem_limit: 300m
+    #     mem_reservation: 100m
+    deploy:
+        resources:
+            limits:
+                cpus: '0.010'
+                memory: 100M
+            reservations:
+                cpus: '0.0001'
+                memory: 30M
+  discovery-service:
+    container_name: discovery-service
+    build:
+      context: discovery-service/.
+      dockerfile: Dockerfile
+    image: discovery-service:latest
+    entrypoint: /app/entrypoint.sh
+    environment:
+      SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://config-server:8088"}}}}'
+      JAVA_OPTS: "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction=1"
+    expose:
+        - 8061
+    ports:
+        - 8061:8061
+    networks:
+        - spring-cloud-network
+    links:
+        - config-server:config-server
+    depends_on:
+        - config-server
+    logging:
+        driver: json-file
+    deploy:
+      resources:
+        limits:
+          cpus: '0.010'
+          memory: 100M
+        reservations:
+          cpus: '0.0001'
+          memory: 30M
+
+  proxy-service:
+    container_name: proxy-service
+    build:
+        context: proxy-service/.
+        dockerfile: Dockerfile
+    image: proxy-service:latest
+    entrypoint: /app/entrypoint.sh
+    environment:
+        SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://config-server:8088"}}}}'
+    expose:
+        - 8060
+    ports:
+        - 8060:8060
+    networks:
+        - spring-cloud-network
+    links:
+        - config-server:config-server
+        - discovery-service:discovery-service
+    depends_on:
+        - config-server
+        - discovery-service
+    logging:
+        driver: json-file
+          
+  user-service:
+    container_name: user-service
+    build:
+        context: user-service/.
+        dockerfile: Dockerfile
+    image: user-service:latest
+    entrypoint: /app/entrypoint.sh
+    environment:
+        SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://config-server:8088"}}}}'
+#         expose:
+#          - 8060
+    ports:
+        - 8098:8098
+    networks:
+        - spring-cloud-network
+    links:
+        - config-server:config-server
+        - discovery-service:discovery-service  
+    depends_on:
+        - config-server
+        - discovery-service
+    logging:
+        driver: json-file
+          
+  auth-service:
+    container_name: auth-service
+    build:
+      context: auth-service/.
+      dockerfile: Dockerfile
+    image: auth-service:latest
+    entrypoint: /app/entrypoint.sh
+    environment:
+      SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://config-server:8088"}}}}'
+    expose:
+      - 8078
+    ports:
+      - 8078:8078
+    networks:
+      - spring-cloud-network
+    links:
+      - config-server:config-server
+      - discovery-service:discovery-service  
+    depends_on:
+      - config-server
+      - discovery-service
+    logging:
+        driver: json-file
             
-    auth-service:
-        container_name: auth-service
-        build:
-            context: auth-service/.
-            dockerfile: Dockerfile
-        image: auth-service:latest
-        entrypoint: /app/entrypoint.sh
-        environment:
-            SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://config-server:8088"}}}}'
-        expose:
-            - 8078
-        ports:
-            - 8078:8078
-        networks:
-            - spring-cloud-network
-        links:
-            - config-server:config-server
-            - discovery-service:discovery-service  
-        depends_on:
-            - config-server
-            - discovery-service
-        logging:
-            driver: json-file
-            
-    gateway-service-zuul:
-        container_name: gateway-service-zuul
-        build:
-            context: gateway-service-zuul/.
-            dockerfile: Dockerfile
-        image: gateway-service:latest
-        entrypoint: /app/entrypoint.sh
-        environment:
-            SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://config-server:8088"}}}}'
-        expose:
-            - 8077
-        ports:
-            - 8077:8077
-        networks:
-            - spring-cloud-network
-        links:
-            - config-server:config-server
-            - discovery-service:discovery-service  
-        depends_on:
-            - config-server
-            - discovery-service
-        logging:
-            driver: json-file
+  gateway-service-zuul:
+    container_name: gateway-service-zuul
+    build:
+      context: gateway-service-zuul/.
+      dockerfile: Dockerfile
+    image: gateway-service:latest
+    entrypoint: /app/entrypoint.sh
+    environment:
+      SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://config-server:8088"}}}}'
+    expose:
+      - 8077
+    ports:
+      - 8077:8077
+    networks:
+      - spring-cloud-network
+    links:
+      - config-server:config-server
+      - discovery-service:discovery-service  
+    depends_on:
+      - config-server
+      - discovery-service
+    logging:
+      driver: json-file
             
             
 networks:
-    spring-cloud-network:
-        driver: bridge
+  spring-cloud-network:
+    driver: bridge
 #volumes:
 #    spring-cloud-config-repo:
 #        external: true
