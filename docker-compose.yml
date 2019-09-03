@@ -1,4 +1,4 @@
-version: '3.6'
+version: '3.3'
 services:
   prometheus:
     image: prom/prometheus:v1.8.2
@@ -16,7 +16,7 @@ services:
       - cadvisor:cadvisor
     depends_on:
       - cadvisor
-      - app
+#      - app
 
   cadvisor:
     image: google/cadvisor:v0.27.3
