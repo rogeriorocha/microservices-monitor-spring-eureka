@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.rpsr.services.user.model.User;
 import br.rpsr.services.user.repository.UserRepository;
+import io.micrometer.core.annotation.Timed;
 
 @RestController
 public class UserController {
@@ -62,6 +63,7 @@ public class UserController {
 	}
 
 	@GetMapping("/all")
+	@Timed(description = "testRPSR")
 	public List<User> findAll2() {
 
 		LOGGER.info("findAll");
