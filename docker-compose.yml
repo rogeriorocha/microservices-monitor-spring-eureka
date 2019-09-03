@@ -173,7 +173,7 @@ services:
     build:
       context: gateway-service-zuul/.
       dockerfile: Dockerfile
-    image: gateway-service:latest
+    image: gateway-service-zuul:latest
     entrypoint: /app/entrypoint.sh
     environment:
       SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://config-server:8088"}}}}'
