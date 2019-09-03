@@ -48,19 +48,23 @@ public class UserController {
 	}
 
 	@GetMapping("/")
-	public List<User> findAll(@RequestHeader(value = "x-user-header") String userName,
+	public List<User> findAll(@RequestHeader(value = "X-Request-User") String userName,
 			@RequestHeader MultiValueMap<String, String> headers) {
 
 		System.out.println("**** user TOKEN=" + userName);
-		
-		
-		
 
 		headers.forEach((String key, List<String> list) -> {
 			System.out.println(key + " " + list.toString());
 		});
 
 		LOGGER.info("user find");
+		return repository.findAll();
+	}
+
+	@GetMapping("/all")
+	public List<User> findAll() {
+
+		LOGGER.info("findAll");
 		return repository.findAll();
 	}
 

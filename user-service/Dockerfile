@@ -10,4 +10,3 @@ RUN chmod 755 $APP_HOME/entrypoint.sh
 
 #CMD ["exec java -jar -Djava.security.egd=file:/dev/./urandom $APP_FILE"]
 #discovery-service-1.0-SNAPSHOT.jar
-
