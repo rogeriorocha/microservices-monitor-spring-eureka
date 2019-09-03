@@ -1,5 +1,17 @@
 server:
-  port: 8077
+  port: 8080
+  
+# ----------------------------------------
+# ACTUATOR PROPERTIES
+# ----------------------------------------
+endpoints:
+  sensitive: false
+management:  
+  security.enabled: false
+  port: 8080
+#management.address=127.0.0.1
+#security.user.name=admin
+#security.user.password=DONT_DO_THIS  
   
 spring:
   zipkin:
