@@ -79,7 +79,7 @@ public class UserController {
 		return this.discoveryClient.getInstances(applicationName);
 	}
 
-	@GetMapping("/all")
+	@GetMapping("/allServices")
 	public List<String> getInstances() {
 		return this.discoveryClient.getServices();
 	}
