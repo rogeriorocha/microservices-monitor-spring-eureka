@@ -50,9 +50,16 @@ scrape_configs:
       - targets: ['pushgateway:9091']
 
 
+#alerting:
+#  alertmanagers:
+#  - scheme: http
+#    static_configs:
+#    - targets: 
+#      - 'alertmanager:9093'      
+
+      
 alerting:
   alertmanagers:
-  - scheme: http
-    static_configs:
-    - targets: 
-      - 'alertmanager:9093'      
+    - static_configs:
+      - targets: 
+        - 'alertmanager:9093'            
