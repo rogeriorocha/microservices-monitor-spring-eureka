@@ -4,7 +4,7 @@ route:
 receivers:
     - name: 'slack'
       slack_configs:
-          - channel: #monitoring    
+          - channel: #monitoramento
             send_resolved: true
             #text: "{{ .CommonAnnotations.description }}"
             username: 'Prometheus'
