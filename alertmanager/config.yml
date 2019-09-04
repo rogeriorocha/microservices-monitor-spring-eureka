@@ -4,7 +4,8 @@ route:
 receivers:
     - name: 'slack'
       slack_configs:
-          - send_resolved: true
+          - channel: #monitoring    
+            send_resolved: true
             #text: "{{ .CommonAnnotations.description }}"
             username: 'Prometheus'
             channel: '#monitoramento'
@@ -26,4 +27,6 @@ receivers:
             icon_emoji: '{{ template "slack.default.iconemoji" . }}'
             icon_url: '{{ template "slack.default.iconurl" . }}'            
             
-templates: '/etc/alertmanager/config/*.tmpl'
+#templates: '/etc/alertmanager/config/*.tmpl'
+templates:
+  - /etc/alertmanager/notifications.tmpl
