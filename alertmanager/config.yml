@@ -1,31 +1,31 @@
 route:
-    receiver: 'slack'
+  receiver: 'slack'
 
 receivers:
-    - name: 'slack'
-      slack_configs:
-          - channel: #monitoramento
-            send_resolved: true
-            #text: "{{ .CommonAnnotations.description }}"
-            username: 'Prometheus'
-            channel: '#monitoramento'
-            api_url:  'https://hooks.slack.com/services/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'
-            #api_url: 'https://hooks.slack.com/services/<webhook-id>'
-            color: '{{ if eq .Status "firing" }}danger{{ else }}good{{ end }}'
-            title: '{{ template "slack.default.title" . }}'
-            title_link: '{{ template "slack.default.titlelink" . }}'
-            pretext: '{{ .CommonAnnotations.summary }}'
-            text: |-
-              {{ range .Alerts }}
-                 *Alert:* {{ .Annotations.summary }} - `{{ .Labels.severity }}`
-                *Description:* {{ .Annotations.description }}
-                *Details:*
-                {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
-                {{ end }}
-              {{ end }}
-            fallback: '{{ template "slack.default.fallback" . }}'
-            icon_emoji: '{{ template "slack.default.iconemoji" . }}'
-            icon_url: '{{ template "slack.default.iconurl" . }}'            
+  - name: 'slack'
+    slack_configs:
+      - channel: #monitoramento
+        send_resolved: true
+        #text: "{{ .CommonAnnotations.description }}"
+        username: 'Prometheus'
+        channel: '#monitoramento'
+        api_url:  'https://hooks.slack.com/services/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'
+        #api_url: 'https://hooks.slack.com/services/<webhook-id>'
+        color: '{{ if eq .Status "firing" }}danger{{ else }}good{{ end }}'
+        title: '{{ template "slack.default.title" . }}'
+        title_link: '{{ template "slack.default.titlelink" . }}'
+        pretext: '{{ .CommonAnnotations.summary }}'
+        text: |-
+          {{ range .Alerts }}
+             *Alert:* {{ .Annotations.summary }} - `{{ .Labels.severity }}`
+            *Description:* {{ .Annotations.description }}
+            *Details:*
+            {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
+            {{ end }}
+          {{ end }}
+        fallback: '{{ template "slack.default.fallback" . }}'
+        icon_emoji: '{{ template "slack.default.iconemoji" . }}'
+        icon_url: '{{ template "slack.default.iconurl" . }}'            
             
 #templates: '/etc/alertmanager/config/*.tmpl'
 templates:

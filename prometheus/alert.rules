@@ -49,6 +49,8 @@ groups:
     annotations:
       summary: "Jenkins down"
       description: "Jenkins container is down for more than 30 seconds."
+      identifier: "Jenkins downID"
+          
 
   - alert: jenkins_high_cpu
     expr: sum(rate(container_cpu_usage_seconds_total{name="jenkins"}[1m])) / count(node_cpu_seconds_total{mode="system"}) * 100 > 10
