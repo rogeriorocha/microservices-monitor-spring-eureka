@@ -20,13 +20,12 @@ receivers:
              *Alert:* {{ .Annotations.summary }} - `{{ .Labels.severity }}`
             *Description:* {{ .Annotations.description }}
             *Details:*
-            {{ range .Labels.SortedPairs }} � *{{ .Name }}:* `{{ .Value }}`
+            {{ range .Labels.SortedPairs }} â¢ *{{ .Name }}:* `{{ .Value }}`
             {{ end }}
           {{ end }}
         fallback: '{{ template "slack.default.fallback" . }}'
         icon_emoji: '{{ template "slack.default.iconemoji" . }}'
-        icon_url: '{{ template "slack.default.iconurl" . }}'            
-            
-#templates: '/etc/alertmanager/config/*.tmpl'
+        icon_url: '{{ template "slack.default.iconurl" . }}'
+                    
 templates:
   - /etc/alertmanager/notifications.tmpl
