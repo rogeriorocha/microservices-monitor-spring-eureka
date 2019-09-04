@@ -9,6 +9,7 @@ Clone this repository on your Docker host, cd into dockprom directory and run co
 
 ```bash
 git clone git@github.com:rogeriorocha/microservices-spring-eureka.git
+mvn package
 cd microservices-spring-eureka
 
 ADMIN_USER=admin ADMIN_PASSWORD=admin docker-compose up -d
