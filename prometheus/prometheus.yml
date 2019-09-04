@@ -1,4 +1,3 @@
-# my global config
 global:
   scrape_interval:     5s # By default, scrape targets every 15 seconds.
   evaluation_interval: 5s # By default, scrape targets every 15 seconds.
@@ -12,8 +11,7 @@ global:
 # Load and evaluate rules in this file every 'evaluation_interval' seconds.
 rule_files:
   - "alert.rules"
-  # - "first.rules"
-  # - "second.rules"
+  
 
 # A scrape configuration containing exactly one endpoint to scrape:
 scrape_configs:
@@ -30,7 +28,7 @@ scrape_configs:
 #         - targets: ['cadvisor:8080']
          
          
-- job_name: 'nodeexporter'
+  - job_name: 'nodeexporter'
     scrape_interval: 5s
     static_configs:
       - targets: ['nodeexporter:9100']
@@ -57,4 +55,4 @@ alerting:
   - scheme: http
     static_configs:
     - targets: 
-      - 'alertmanager:9093'       
+      - 'alertmanager:9093'      
