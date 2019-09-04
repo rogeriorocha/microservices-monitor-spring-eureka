@@ -15,15 +15,8 @@ receivers:
         title: '{{ template "slack.default.title" . }}'
         title_link: '{{ template "slack.default.titlelink" . }}'
         pretext: '{{ .CommonAnnotations.summary }}'
-        text: |-
-          {{ range .Alerts }}
-             *Alert:* {{ .Annotations.summary }} - `{{ .Labels.severity }}`
-            *Description:* {{ .Annotations.description }}
-            *Details:*
-            {{ range .Labels.SortedPairs }} â¢ *{{ .Name }}:* `{{ .Value }}`
-            {{ end }}
-          {{ end }}
-        fallback: '{{ template "slack.default.fallback" . }}'
+        text: '{{ template "custom_slack_message" . }}'
+         allback: '{{ template "slack.default.fallback" . }}'
         icon_emoji: '{{ template "slack.default.iconemoji" . }}'
         icon_url: '{{ template "slack.default.iconurl" . }}'
                     
