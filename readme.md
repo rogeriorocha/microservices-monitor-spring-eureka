@@ -1,4 +1,6 @@
-Monitoramento / Services with Eureka Discovery, Zuul Gateway, Swagger, 
+# sample-monitor-docker
+Monitoramento e exemplo de Serviços em java springboot.
+
 ## Solução para monitoramento
 
 - [Prometheus](https://prometheus.io/) - Coletor de metricas e alertas
@@ -7,12 +9,12 @@ Monitoramento / Services with Eureka Discovery, Zuul Gateway, Swagger,
 - [NodeExporter](https://github.com/prometheus/node_exporter) - Exportar metricas da maquina para Prometheus
 - alerting with [AlertManager](https://github.com/prometheus/alertmanager) - Gerenciamento de alertas
 
-## Services
+## Serviços
 - [Eureka Discovery](https://github.com/Netflix/eureka) by Netflix - Service discovery, load balancing and failover.
 - [Zuul Gateway](https://github.com/Netflix/zuul/wiki) by Netflix - Gateway
 - [Swagger](https://swagger.io/tools/swagger-ui/) Teste API’s 
 
-## Install
+## Instalação
 
 Clone this repository on your Docker host, cd into dockprom directory and run compose up:
 
@@ -24,7 +26,7 @@ cd microservices-spring-eureka
 ADMIN_USER=admin ADMIN_PASSWORD=admin docker-compose up -d
 ```
 
-Prerequisites:
+Pré-requisitos:
 
 * Docker Engine >= 1.13
 * Docker Compose >= 1.11
@@ -41,7 +43,7 @@ Containers:
 
 ## Setup Grafana
 
-Navigate to `http://<host-ip>:3000` and login with user ***admin*** password ***admin***. You can change the credentials in the compose file or by supplying the `ADMIN_USER` and `ADMIN_PASSWORD` environment variables on compose up. The config file can be added directly in grafana part like this
+Entre em `http://<host-ip>:3000` and login with user ***admin*** password ***admin***. You can change the credentials in the compose file or by supplying the `ADMIN_USER` and `ADMIN_PASSWORD` environment variables on compose up. The config file can be added directly in grafana part like this
 ```
 grafana:
   image: grafana/grafana:5.2.4
