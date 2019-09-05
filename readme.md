@@ -1,7 +1,16 @@
-Monitor + Services with Eureka Discovery, Zuul Gateway, Swagger, feign (inter oom  
-========
-Solu��o de Monitoramento para Hosts e Conteiners com [Prometheus](https://prometheus.io/), [Grafana](http://grafana.org/), [cAdvisor](https://github.com/google/cadvisor),
-[NodeExporter](https://github.com/prometheus/node_exporter) and alerting with [AlertManager](https://github.com/prometheus/alertmanager).
+Monitoramento / Services with Eureka Discovery, Zuul Gateway, Swagger, 
+## Solução para monitoramento
+
+- [Prometheus](https://prometheus.io/) - Coletor de metricas e alertas
+- [Grafana](http://grafana.org/) - Interface Web para Monitoramento e Analise
+- [cAdvisor](https://github.com/google/cadvisor) - Coletor de informações dos contêineres
+- [NodeExporter](https://github.com/prometheus/node_exporter) - Exportar metricas da maquina para Prometheus
+- alerting with [AlertManager](https://github.com/prometheus/alertmanager) - Gerenciamento de alertas
+
+## Services
+- [Eureka Discovery](https://github.com/Netflix/eureka) by Netflix - Service discovery, load balancing and failover.
+- [Zuul Gateway](https://github.com/Netflix/zuul/wiki) by Netflix - Gateway
+- [Swagger](https://swagger.io/tools/swagger-ui/) Teste API’s 
 
 ## Install
 
@@ -270,7 +279,7 @@ Please replace the `user:password` part with your user and password set in the i
 
 ## Updating Grafana to v5.2.2
 
-[In Grafana versions >= 5.1 the id of the grafana user has been changed](http://docs.grafana.org/installation/docker/#migration-from-a-previous-version-of-the-docker-container-to-5-1-or-later). Unfortunately this means that files created prior to 5.1 won’t have the correct permissions for later versions.
+[In Grafana versions >= 5.1 the id of the grafana user has been changed](http://docs.grafana.org/installation/docker/#migration-from-a-previous-version-of-the-docker-container-to-5-1-or-later). Unfortunately this means that files created prior to 5.1 wonât have the correct permissions for later versions.
 
 | Version |   User  | User ID |
 |:-------:|:-------:|:-------:|
