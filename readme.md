@@ -1,7 +1,7 @@
 # sample-monitor-docker
-Monitoramento e exemplo de Serviços em java springboot.
+***Monitoramento*** e exemplo de ***serviços [SpringBoot](https://spring.io/projects/spring-boot)*** (java).
 
-## Monitoramento
+## contêineres utilizados para Monitoramento
 
 - [Prometheus](https://prometheus.io/) - Coletor de metricas e alertas
 - [Grafana](http://grafana.org/) - Interface Web para Monitoramento e Analise
@@ -14,7 +14,7 @@ Monitoramento e exemplo de Serviços em java springboot.
 - [Zuul Gateway](https://github.com/Netflix/zuul/wiki) by Netflix - Gateway
 - [Swagger](https://swagger.io/tools/swagger-ui/) Teste API’s 
 
-## Outros
+## Outros contêineres
 - [Caddy web server](https://caddyserver.com/)
 
 ## Instalação
